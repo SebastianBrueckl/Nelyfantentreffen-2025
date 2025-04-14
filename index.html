@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nellyfantentreffen</title>
+    <title>Nelyfantentreffen</title>
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
@@ -15,8 +14,27 @@
             height: 100vh;
             /* overflow: hidden; entfernt, um Scrollen zu ermöglichen */
         }
-        .button{
-            text-decoration: none‚;
+        button{
+            box-shadow: none;
+            text-decoration: none;
+            text-decoration: none;
+            border-radius: 10px;
+            padding: 3px;
+            width: 18pc;
+            height: 4.5pc;
+            background-color: #ffecf3;
+            border-color: #f8bbd1;
+        }
+        button:hover{
+            width: 19pc;
+            height: 5.5;
+            background-color: #ffc8da;
+            border-color: #ffcee0;
+        }
+        a{
+            text-decoration: none;
+            color: #000;
+            font-size: 2pc;
         }
         video {
             width: 100%;
@@ -32,15 +50,6 @@
             padding: 10px;
         }
 
-        .button-container a {
-            display: inline-block;
-            padding: 10px 20px;
-            text-decoration: none color: white;
-            background-color: #74d3ff;
-            border-radius: 5px;
-            margin: 5px 0;
-        }
-
         p {
             font-family: Arial, Helvetica, sans-serif;
             font-size: 1.2rem;
@@ -52,7 +61,7 @@
             }
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 768px) {s
             .button-container {
                 margin-top: 10px;
             }
@@ -61,14 +70,18 @@
 </head>
 <body>
     <video autoplay loop muted playsinline>
-        <source src="EINLADUNG.mov" type="video/mp4">
+        <source src="animation.mov" type="video/mp4">
         Dein Browser unterstützt diese Seite nicht.
     </video>
     <div class="button-container">
         <p>Bitte gib uns Bescheid, ob du kommen kannst:</p>
-        <a type="button" class="button" href="https://forms.gle/pUFrtPigUgF9atWx7">zur Umfrage</a>
-        <p>Zur Einladung:</p>
-        <a href="Einladung Nellyfantentreffen2025.png" class="button" type="button">Einladung ansehen</a>
+        <button>
+            <a href="https://forms.gle/pUFrtPigUgF9atWx7">Zur Umfrage</a>
+        </button>
+        <p>Hier siehst Du die Einladung vergrößert.</p>
+        <button>
+            <a href="Einladung.png">Einladung</a>
+        </button>
     </div>
     <script>
         // Funktion, um nach unten zu scrollen
