@@ -1,99 +1,201 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nelyfantentreffen</title>
-    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            /* overflow: hidden; entfernt, um Scrollen zu ermöglichen */
-        }
-        button{
-            box-shadow: none;
-            text-decoration: none;
-            text-decoration: none;
-            border-radius: 10px;
-            padding: 3px;
-            width: 18pc;
-            height: 4.5pc;
-            background-color: #ffecf3;
-            border-color: #f8bbd1;
-        }
-        button:hover{
-            width: 19pc;
-            height: 5.5;
-            background-color: #ffc8da;
-            border-color: #ffcee0;
-        }
-        a{
-            text-decoration: none;
-            color: #000;
-            font-size: 2pc;
-        }
-        video {
-            width: 100%;
-            height: auto;
-            object-fit: cover;
-            outline: none;
-            -webkit-appearance: none;
-            appearance: none;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nelyfantentreffen</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow-x: hidden;
+      position: relative;
+    }
 
-        .button-container {
-            text-align: center;
-            padding: 10px;
-        }
+    /* 🎉 Glitzerregen canvas (hinter allem, immer im Hintergrund) */
+    #glitter-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0.8;
+    }
 
-        p {
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 1.2rem;
-        }
+    /* Video Wrapper */
+    .video-wrapper {
+      width: 100%;
+      background-color: #ffecf3;
+      padding: 0;
+    }
 
-        @media (min-width: 768px) {
-            p {
-                font-size: 2rem;
-            }
-        }
+    .header-video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
 
-        @media (max-width: 768px) {s
-            .button-container {
-                margin-top: 10px;
-            }
-        }
-    </style>
+    /* Button Container */
+    .button-container {
+      text-align: center;
+      padding: 2rem 1rem;
+      max-width: 800px;
+      width: 100%;
+      z-index: 1;
+    }
+
+    /* Button Styles */
+    button {
+      background-color: #ffecf3;
+      border: 2px solid #f8bbd1;
+      border-radius: 10px;
+      padding: 0.6rem 1.2rem;
+      font-size: 1.2rem;
+      margin: 1rem 0;
+      transition: all 0.3s ease;
+      width: 18pc;  /* Die gleiche Größe wie vorher */
+      height: 4.5pc; /* Die gleiche Höhe wie vorher */
+    }
+
+    button:hover {
+      transform: scale(1.1);
+      background-color: #ffc8da;
+      border-color: #ffcee0;
+      cursor: pointer;
+    }
+
+    a {
+      text-decoration: none;
+      color: #000;
+      font-size: 1rem;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin: 1rem 0;
+    }
+
+    /* Media Queries für verschiedene Bildschirmgrößen */
+    @media (max-width: 768px) {
+      /* Anpassung der Buttons auf mobilen Geräten */
+      button {
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+        width: 15rem;  /* Etwas kleinere Breite */
+        height: 3.5rem; /* Etwas kleinere Höhe */
+      }
+
+      /* Texte anpassen */
+      p {
+        font-size: 1rem;
+      }
+
+      /* Video auf mobilen Geräten anpassen */
+      .header-video {
+        width: 100%;
+        height: auto;
+      }
+    }
+  </style>
 </head>
 <body>
-    <video autoplay loop muted playsinline>
-        <source src="animation.mov" type="video/mp4">
-        Dein Browser unterstützt diese Seite nicht.
-    </video>
-    <div class="button-container">
-        <p>Bitte gib uns Bescheid, ob du kommen kannst:</p>
-        <button>
-            <a href="https://forms.gle/pUFrtPigUgF9atWx7">Zur Umfrage</a>
-        </button>
-        <p>Hier siehst Du die Einladung vergrößert.</p>
-        <button>
-            <a href="Einladung.png">Einladung</a>
-        </button>
-    </div>
-    <script>
-        // Funktion, um nach unten zu scrollen
-        function scrollToBottom() {
-            window.scrollTo({
-                top: document.body.scrollHeight,
-                behavior: 'smooth'
-            });
-        }
 
-        // Nach 10 Sekunden automatisch nach unten scrollen
-        setTimeout(scrollToBottom, 11000);
-    </script>
+  <!-- Glitzerregen -->
+  <canvas id="glitter-canvas"></canvas>
+
+  <!-- 🎬 Video Wrapper -->
+  <div class="video-wrapper">
+    <video class="header-video" autoplay loop muted playsinline>
+      <source src="animation.mov" type="video/mp4" />
+      Dein Browser unterstützt dieses Video nicht.
+    </video>
+  </div>
+
+  <!-- Buttons -->
+  <div class="button-container">
+    <p>Bitte gib uns Bescheid, ob du kommen kannst:</p>
+    <button>
+      <a href="https://forms.gle/pUFrtPigUgF9atWx7">Zur Umfrage</a>
+    </button>
+    <p>Hier siehst Du die Einladung vergrößert.</p>
+    <button>
+      <a href="Einladung.png">Einladung</a>
+    </button>
+  </div>
+
+  <!-- Glitzerregen-Skript -->
+  <script>
+    const canvas = document.getElementById("glitter-canvas");
+    const ctx = canvas.getContext("2d");
+
+    let width, height;
+    let particles = [];
+
+    // Canvas auf die Bildschirmgröße anpassen
+    function resize() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+    }
+
+    // Resized eventlistener hinzufügen
+    window.addEventListener("resize", resize);
+    resize();  // Initialer Aufruf
+
+    // Partikel erzeugen (jetzt pink!)
+    function createParticle() {
+      return {
+        x: Math.random() * width,
+        y: Math.random() * height,
+        radius: Math.random() * 2 + 1,  // Partikelgröße
+        speedY: Math.random() * 1 + 0.5, // Geschwindigkeit
+        opacity: Math.random() * 0.5 + 0.3, // Transparenz
+        color: `rgba(255, 105, 180, ${Math.random() * 0.5 + 0.5})` // Pinke Farbe
+      };
+    }
+
+    // Partikel array mit 200 Partikeln füllen
+    for (let i = 0; i < 200; i++) {
+      particles.push(createParticle());
+    }
+
+    // Funktion zum Zeichnen der Partikel
+    function draw() {
+      ctx.clearRect(0, 0, width, height);  // Hintergrund löschen
+
+      // Alle Partikel zeichnen
+      for (let p of particles) {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2); // Partikel zeichnen
+        ctx.fillStyle = p.color; // Partikelfarbe (jetzt pink)
+        ctx.shadowColor = p.color; // Schattenfarbe
+        ctx.shadowBlur = 8; // Weicher Schatten
+        ctx.fill();
+
+        // Partikel nach unten bewegen
+        p.y += p.speedY;
+
+        // Wenn Partikel den Boden erreicht, von oben neu starten
+        if (p.y > height) {
+          p.y = 0;
+          p.x = Math.random() * width;
+        }
+      }
+
+      // Nächsten Frame zeichnen
+      requestAnimationFrame(draw);
+    }
+
+    draw(); // Initiales Zeichnen des Glitzers
+  </script>
+
 </body>
 </html>

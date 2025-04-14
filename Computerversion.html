@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nelyfantentreffen</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow-x: hidden;
+      position: relative;  /* Stellen sicher, dass der Canvas dahinter liegt */
+    }
+
+    /* 🎉 Glitzerregen canvas (jetzt im Hintergrund und nimmt den gesamten Bildschirm ein) */
+    #glitter-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;  /* Damit der Glitzerregen nicht mit anderen Elementen interagiert */
+      z-index: -1;           /* Der Canvas liegt jetzt hinter allen anderen Elementen */
+      opacity: 0.8;          /* Leichte Transparenz für subtilen Effekt */
+    }
+
+    /* Der Rest des Styles bleibt unverändert */
+    .video-wrapper {
+      width: 100%;
+      background-color: #ffecf3;
+    }
+
+    .header-video {
+      width: 40%;
+      height: auto;
+      display: block;
+      margin-left: 30%;
+    }
+
+    .button-container {
+      text-align: center;
+      padding: 2rem 1rem;
+      max-width: 800px;
+      width: 100%;
+    }
+
+    button {
+      background-color: #ffecf3;
+      border: 2px solid #f8bbd1;
+      border-radius: 10px;
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+      margin: 1rem 0;
+      transition: all 0.3s ease;
+      width: 18pc;  /* Die gleiche Größe wie vorher */
+      height: 4.5pc; /* Die gleiche Höhe wie vorher */
+    }
+
+    button:hover {
+      transform: scale(1.1);
+      background-color: #ffc8da;
+      border-color: #ffcee0;
+      cursor: pointer;
+    }
+
+    a {
+      text-decoration: none;
+      color: #000;
+      font-size: 1rem;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin: 1rem 0;
+    }
+
+    @media (max-width: 768px) {
+      button {
+        font-size: 0.95rem;
+        padding: 0.5rem 1rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+
+      a {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Glitzerregen -->
+  <canvas id="glitter-canvas"></canvas>
+
+  <!-- 🎬 Video Wrapper -->
+  <div class="video-wrapper">
+    <video class="header-video" autoplay loop muted playsinline>
+      <source src="animation.mov" type="video/mp4" />
+      Dein Browser unterstützt dieses Video nicht.
+    </video>
+  </div>
+
+  <!-- Buttons -->
+  <div class="button-container">
+    <p>Bitte gib uns Bescheid, ob du kommen kannst:</p>
+    <button>
+      <a href="https://forms.gle/pUFrtPigUgF9atWx7">Zur Umfrage</a>
+    </button>
+    <p>Hier siehst Du die Einladung vergrößert.</p>
+    <button>
+      <a href="Einladung.png">Einladung</a>
+    </button>
+  </div>
+
+  <!-- Glitzerregen-Skript -->
+  <script>
+    const canvas = document.getElementById("glitter-canvas");
+    const ctx = canvas.getContext("2d");
+
+    let width, height;
+    let particles = [];
+
+    // Canvas auf die Bildschirmgröße anpassen
+    function resize() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+    }
+
+    // Resized eventlistener hinzufügen
+    window.addEventListener("resize", resize);
+    resize();  // Initialer Aufruf
+
+    // Partikel erzeugen (jetzt pink!)
+    function createParticle() {
+      return {
+        x: Math.random() * width,
+        y: Math.random() * height,
+        radius: Math.random() * 2 + 1,  // Partikelgröße
+        speedY: Math.random() * 1 + 0.5, // Geschwindigkeit
+        opacity: Math.random() * 0.5 + 0.3, // Transparenz
+        color: `rgba(255, 105, 180, ${Math.random() * 0.5 + 0.5})` // Pinke Farbe
+      };
+    }
+
+    // Partikel array mit 200 Partikeln füllen
+    for (let i = 0; i < 200; i++) {
+      particles.push(createParticle());
+    }
+
+    // Funktion zum Zeichnen der Partikel
+    function draw() {
+      ctx.clearRect(0, 0, width, height);  // Hintergrund löschen
+
+      // Alle Partikel zeichnen
+      for (let p of particles) {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2); // Partikel zeichnen
+        ctx.fillStyle = p.color; // Partikelfarbe (jetzt pink)
+        ctx.shadowColor = p.color; // Schattenfarbe
+        ctx.shadowBlur = 8; // Weicher Schatten
+        ctx.fill();
+
+        // Partikel nach unten bewegen
+        p.y += p.speedY;
+
+        // Wenn Partikel den Boden erreicht, von oben neu starten
+        if (p.y > height) {
+          p.y = 0;
+          p.x = Math.random() * width;
+        }
+      }
+
+      // Nächsten Frame zeichnen
+      requestAnimationFrame(draw);
+    }
+
+    draw(); // Initiales Zeichnen des Glitzers
+  </script>
+
+</body>
+</html>
